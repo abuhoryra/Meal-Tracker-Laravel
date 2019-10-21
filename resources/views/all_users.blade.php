@@ -12,6 +12,8 @@
             <th scope="col">Last Name</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
+            <th scope="col">Super</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +26,29 @@
                 <td>{{$row->last_name}}</td>
                 <td>{{$row->email}}</td>
                 <td>{{$row->phone}}</td>
+                <td>
+                  @if ($row->is_super == 0)
+                    <p class="text-danger">No</p>
+                @else
+                    <p class="text-success">Yes</p>
+                @endif
+              </td>
+                <td> <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Action
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">
+                          @if ($row->is_super == 0)
+                          <a class="dropdown-item"  href="{{url('/changeSuper/'. $row->id .'/1')}}">Make Super</a>
+                      @else
+                          <a class="dropdown-item"  href="{{url('/changeSuper/'. $row->id .'/0')}}">Remove Super</a>
+                      @endif
+                      </a>
+                      {{-- <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a> --}}
+                    </div>
+                  </div></td>
             </tr>
         @endforeach
         </tbody>

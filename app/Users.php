@@ -24,8 +24,14 @@ class Users extends Model
 
     public static function get_all_active_users() {
         return DB::table('users')
-        ->select('id','first_name','last_name','email','phone')
+        ->select('id','first_name','last_name','email','phone','is_super')
         ->where('status',1)
         ->get();
     }
+
+    public static function change_super($id, $field) {
+        DB::table('users')
+              ->where('id', $id)
+              ->update(['is_super' => $field]);
+  }
 }

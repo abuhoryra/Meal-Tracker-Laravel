@@ -8,12 +8,23 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-    <title>Sidebar template</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
  
 <style>
@@ -569,50 +580,55 @@ body {
               </ul>
             </div> --}}
           </li>
+          @if (check_super())
+            <li class="sidebar-dropdown">
+                <a href="#">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>User</span>
+                </a>
+                <div class="sidebar-submenu">
+                  <ul>
+                    <li>
+                      <a href="{{ url('/allUsers') }}">All Users
+    
+                      </a>
+                    </li>
+                    <li>
+                    <a href="{{ url('/deactive') }}">User Requests <span class="badge badge-pill badge-danger">{{ count_deactive_users() }}</span></a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+          
+              
+          @endif
+        
           <li class="sidebar-dropdown">
             <a href="#">
-            <i class="fa fa-user" aria-hidden="true"></i>
-              <span>User</span>
+                <i class="fas fa-utensils"></i>
+              <span>Meals</span>
             </a>
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="{{ url('/allUsers') }}">All Users
-
-                  </a>
+                  <a href="#">Add Meals</a>
                 </li>
                 <li>
-                <a href="{{ url('/deactive') }}">User Requests <span class="badge badge-pill badge-danger">{{ count_deactive_users() }}</span></a>
+                  <a href="#">My Meals</a>
                 </li>
-              </ul>
-            </div>
-          </li>
-          {{-- <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="far fa-gem"></i>
-              <span>Components</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="#">General</a>
-                </li>
-                <li>
-                  <a href="#">Panels</a>
-                </li>
-                <li>
-                  <a href="#">Tables</a>
+                {{-- <li>
+                  <a href="#"></a>
                 </li>
                 <li>
                   <a href="#">Icons</a>
                 </li>
                 <li>
                   <a href="#">Forms</a>
-                </li>
+                </li> --}}
               </ul>
             </div>
           </li>
-          <li class="sidebar-dropdown">
+          {{-- <li class="sidebar-dropdown">
             <a href="#">
               <i class="fa fa-chart-line"></i>
               <span>Charts</span>
@@ -638,7 +654,7 @@ body {
             <a href="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
-          <i class="fa fa-globe"></i> <span>Logout</span>
+          <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
          </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
@@ -696,11 +712,11 @@ body {
   <!-- page-content" -->
 </div>
 <!-- page-wrapper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> --}}
     
 </body>
 <script>
