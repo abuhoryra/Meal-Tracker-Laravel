@@ -34,4 +34,40 @@ class Users extends Model
               ->where('id', $id)
               ->update(['is_super' => $field]);
   }
+
+  public static function add_meal($lunch, $dinner) {
+
+    DB::table('meals')->insert([
+        [
+        'user_id' => Auth::user()->id, 
+        'lunch' => $lunch,
+        'dinner' => $dinner,
+        'date' => Date('Y-m-d'),
+        'time' => time()
+        ]
+    ]);
+  }
+
+  public static function get_individual_meal_record() {
+    
+    $date = Date('Y-m-d');
+
+    return DB::table('meals')
+                ->select('date')
+                ->where('user_id', Auth::user()->id)
+                ->where('date', $date)
+                ->get()->first();
+
+  }
+
+  public static function get_my_current_month_meals() {
+    
+    $id = Auth::user()->id;
+    
+    return DB::select( DB::raw("SELECT *
+    FROM meals
+    WHERE MONTH(date) = MONTH(CURRENT_DATE())
+    AND YEAR(date) = YEAR(CURRENT_DATE()) AND user_id = '$id'") );
+  }
+
 }

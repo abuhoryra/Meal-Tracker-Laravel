@@ -51,9 +51,29 @@ class Account extends Controller
 
     public function change_super($id, $field) {
 
-        
-
         Users::change_super($id, $field);
         return redirect()->back();
+    }
+
+    public function meal() {
+        
+        $meal = Users::get_individual_meal_record();
+        return view('add_meal', compact('meal'));
+    }
+
+    public function save_meal(Request $request) {
+
+        $lunch = $request->input('lunch');
+        $dinner = $request->input('dinner');
+
+        Users::add_meal($lunch, $dinner);
+        return redirect()->back();
+
+    }
+
+    public function my_current_month_meal() {
+
+        $meals = Users::get_my_current_month_meals();
+        return view('my_meal', compact('meals'));
     }
 }

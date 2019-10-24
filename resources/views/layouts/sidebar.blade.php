@@ -611,10 +611,10 @@ body {
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a href="#">Add Meals</a>
+                <a href="{{ URL('/meal')}}">Add Meals</a>
                 </li>
                 <li>
-                  <a href="#">My Meals</a>
+                <a href="{{ URL('myMeal')}}">My Meals</a>
                 </li>
                 {{-- <li>
                   <a href="#"></a>
