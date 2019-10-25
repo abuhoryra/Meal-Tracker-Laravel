@@ -24,3 +24,5 @@ Route::get('/changeSuper/{id}/{field}', 'Account@change_super');
 Route::get('/meal', 'Account@meal');
 Route::post('/saveMeal', 'Account@save_meal');
 Route::get('/myMeal', 'Account@my_current_month_meal');
+Route::get('/publicMeal/{id}', 'Account@get_public_meal');
+Route::post('/editMeal', 'Account@edit_meal');

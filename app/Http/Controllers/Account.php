@@ -76,4 +76,21 @@ class Account extends Controller
         $meals = Users::get_my_current_month_meals();
         return view('my_meal', compact('meals'));
     }
+
+    public function get_public_meal($id) {
+
+        $meals = Users::get_public_meals($id);
+        return view('public_meal', compact('meals'));
+    }
+
+    public function edit_meal(Request $request) {
+
+        $id = $request->input('id');
+        $lunch = $request->input('lunch');
+        $dinner = $request->input('dinner');
+
+        Users::edit_meal($id, $lunch, $dinner);
+        return redirect()->back();
+
+    }
 }

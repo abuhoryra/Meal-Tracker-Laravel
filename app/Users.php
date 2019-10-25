@@ -70,4 +70,19 @@ class Users extends Model
     AND YEAR(date) = YEAR(CURRENT_DATE()) AND user_id = '$id'") );
   }
 
+  public static function get_public_meals($id) {
+    
+    return DB::select( DB::raw("SELECT meals.*,users.first_name,users.last_name
+    FROM meals
+    INNER JOIN users ON users.id=meals.user_id
+    WHERE MONTH(meals.date) = MONTH(CURRENT_DATE())
+    AND YEAR(meals.date) = YEAR(CURRENT_DATE()) AND user_id = '$id'") );
+  }
+
+  public static function edit_meal($id, $lunch, $dinner) {
+    DB::table('meals')
+          ->where('id', $id)
+          ->update(['lunch' => $lunch, 'dinner' => $dinner]);
+}
+
 }

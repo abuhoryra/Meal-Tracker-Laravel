@@ -40,11 +40,12 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="#">
                           @if ($row->is_super == 0)
-                          <a class="dropdown-item"  href="{{url('/changeSuper/'. $row->id .'/1')}}">Make Super</a>
+                          <a class="dropdown-item text-success"  href="{{url('/changeSuper/'. $row->id .'/1')}}">Make Super</a>
                       @else
-                          <a class="dropdown-item"  href="{{url('/changeSuper/'. $row->id .'/0')}}">Remove Super</a>
+                          <a class="dropdown-item text-danger"  href="{{url('/changeSuper/'. $row->id .'/0')}}">Remove Super</a>
                       @endif
                       </a>
+                      <a class="dropdown-item text-info" href="{{URL('/publicMeal/'. $row->id)}}">Edit Meal</a>
                       {{-- <a class="dropdown-item" href="#">Another action</a>
                       <a class="dropdown-item" href="#">Something else here</a> --}}
                     </div>
