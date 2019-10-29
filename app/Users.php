@@ -85,4 +85,16 @@ class Users extends Model
           ->update(['lunch' => $lunch, 'dinner' => $dinner]);
 }
 
+public static function save_money($user_id, $month, $value) {
+
+  DB::table('money')->insert([
+    [
+    'user_id' => $user_id, 
+    'month' => $month,
+    'value' => $value,
+    'time' => time()
+    ]
+]);
+}
+
 }

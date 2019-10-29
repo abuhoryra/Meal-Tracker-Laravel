@@ -93,4 +93,27 @@ class Account extends Controller
         return redirect()->back();
 
     }
+
+    public function add_money() {
+
+        $user = Users::get_all_active_users();
+        return view('add_money', compact('user'));
+    }
+
+    public function save_money(Request $request) {
+
+        $user_id = $request->input('user_id');
+        $month = $request->input('month');
+        $value = $request->input('value');
+
+        $this->validate($request, [
+            'user_id' => ['required'],
+            'month' => ['required'],
+            'value' => ['required', 'numeric']
+
+         ]);
+        
+        Users::save_money($user_id, $month, $value);
+        return redirect()->back()->with('message', 'Money Added Succesfully');
+    }
 }

@@ -595,6 +595,7 @@ body {
                     </li>
                     <li>
                     <a href="{{ url('/deactive') }}">User Requests <span class="badge badge-pill badge-danger">{{ count_deactive_users() }}</span></a>
+                    <a href="{{ url('/addMoney') }}">Add Money </a>
                     </li>
                   </ul>
                 </div>

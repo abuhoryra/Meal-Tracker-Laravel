@@ -28,9 +28,9 @@
                 <td>{{$row->phone}}</td>
                 <td>
                   @if ($row->is_super == 0)
-                    <p class="text-danger">No</p>
+                    <p class="text-danger font-weight-bold">No</p>
                 @else
-                    <p class="text-success">Yes</p>
+                    <p class="text-success font-weight-bold">Yes</p>
                 @endif
               </td>
                 <td> <div class="dropdown">
