@@ -28,3 +28,5 @@ Route::get('/publicMeal/{id}', 'Account@get_public_meal');
 Route::post('/editMeal', 'Account@edit_meal');
 Route::get('/addMoney', 'Account@add_money');
 Route::post('/savemeal', 'Account@save_money');
+Route::get('/myHistory', 'Account@my_history');
+

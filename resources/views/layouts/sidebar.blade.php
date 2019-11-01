@@ -652,6 +652,12 @@ body {
             </div>
           </li> --}}
           <li class="sidebar">
+            <a href="{{ URL('/myHistory')}}">
+               <i class="fas fa-history"></i>
+                <span>My History</span>
+              </a>
+          </li>
+          <li class="sidebar">
             <a href="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">

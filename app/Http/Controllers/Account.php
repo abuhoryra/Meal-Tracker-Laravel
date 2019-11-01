@@ -116,4 +116,9 @@ class Account extends Controller
         Users::save_money($user_id, $month, $value);
         return redirect()->back()->with('message', 'Money Added Succesfully');
     }
+
+    public function my_history() {
+
+        return view('my_history');
+    }
 }
