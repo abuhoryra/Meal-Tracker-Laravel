@@ -57,6 +57,17 @@
                     </div>
             </div>
             <div class="col-md-2">
+                <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select Year</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="year">
+                          <option value="">Select Year</option>
+                          <option value="2019">2019</option>
+                          <option value="2020">2020</option>
+                          <option value="2021">2021</option>
+                        </select>
+                </div>
+        </div>
+            <div class="col-md-2">
                     <div class="form-group">
                             <label for="formGroupExampleInput">Enter Ammount</label>
                             <input type="number" class="form-control" name="value" id="formGroupExampleInput" placeholder="Ex: 1000">

@@ -104,21 +104,61 @@ class Account extends Controller
 
         $user_id = $request->input('user_id');
         $month = $request->input('month');
+        $year = $request->input('year');
         $value = $request->input('value');
 
         $this->validate($request, [
             'user_id' => ['required'],
             'month' => ['required'],
+            'year' => ['required'],
             'value' => ['required', 'numeric']
 
          ]);
         
-        Users::save_money($user_id, $month, $value);
+        Users::save_money($user_id, $month, $year, $value);
         return redirect()->back()->with('message', 'Money Added Succesfully');
     }
 
     public function my_history() {
 
-        return view('my_history');
+        $curr_money = Users::get_current_month_money();
+        $curr_meal = Users::get_current_month_meal();
+        $total_meal = 0;
+       foreach($curr_meal as $row){
+           $total_meal =  $row->total;
+       }
+       //var_dump($curr_meal);
+       //die();
+
+        return view('my_history', compact('curr_money','total_meal'));
+    }
+
+    public function get_money_by_month(Request $request) {
+
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        $this->validate($request, [
+            'month' => ['required'],
+            'year' => ['required']
+         ]);
+
+        $data = Users::get_money_by_month($month, $year);
+        echo $data;
+    }
+
+    public function get_meal_by_month(Request $request) {
+
+        $mmonth = $request->input('mmonth');
+        $myear = $request->input('myear');
+     
+        $this->validate($request, [
+            'mmonth' => ['required'],
+            'myear' => ['required']
+         ]);
+
+        $mealData = Users::get_meal_by_month($mmonth, $myear);
+        echo $mealData;
+        
     }
 }

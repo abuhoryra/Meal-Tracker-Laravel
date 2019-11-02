@@ -85,16 +85,73 @@ class Users extends Model
           ->update(['lunch' => $lunch, 'dinner' => $dinner]);
 }
 
-public static function save_money($user_id, $month, $value) {
+public static function save_money($user_id, $month, $year, $value) {
 
   DB::table('money')->insert([
     [
     'user_id' => $user_id, 
     'month' => $month,
+    'year' => $year,
     'value' => $value,
     'time' => time()
     ]
 ]);
 }
+
+public static function get_current_month_money() {
+  
+  $id = Auth::user()->id;
+  $month = date("F");
+  $year = date("Y");
+    
+  return DB::table('money')
+            ->select('money.*')
+            ->where('month', $month)
+            ->where('year', $year)
+            ->where('user_id', $id)
+            ->sum('money.value');
+}
+
+public static function get_current_month_meal() {
+  
+  $id = Auth::user()->id;
+    
+  return DB::select( DB::raw("SELECT SUM(lunch)+SUM(dinner) AS total
+  FROM meals
+  WHERE MONTH(date) = MONTH(CURRENT_DATE())
+  AND YEAR(date) = YEAR(CURRENT_DATE()) AND user_id = '$id'") );
+
+ }
+
+ public static function get_money_by_month($month, $year) {
+  
+  $id = Auth::user()->id;
+
+  return DB::table('money')
+            ->select('money.*')
+            ->where('month', $month)
+            ->where('year', $year)
+            ->where('user_id', $id)
+            ->sum('money.value');
+
+ }
+
+ public static function get_meal_by_month($month, $year) {
+  
+  $id = Auth::user()->id;
+    
+  // return DB::select( DB::raw("SELECT SUM(lunch)+SUM(dinner) AS total
+  // FROM meals
+  // WHERE MONTH(date) = '$month'
+  // AND YEAR(date) = '$year' AND user_id = '$id'") );
+
+  return DB::table('meals')
+            ->select('meals.*')
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->where('user_id', $id)
+            ->sum(DB::raw('lunch + dinner'));
+
+ }
 
 }
