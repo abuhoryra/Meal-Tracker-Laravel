@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 use App\Users;
 
 
@@ -123,6 +124,7 @@ class Account extends Controller
 
         $curr_money = Users::get_current_month_money();
         $curr_meal = Users::get_current_month_meal();
+        $field = Users::background_value();
         $total_meal = 0;
        foreach($curr_meal as $row){
            $total_meal =  $row->total;
@@ -130,7 +132,7 @@ class Account extends Controller
        //var_dump($curr_meal);
        //die();
 
-        return view('my_history', compact('curr_money','total_meal'));
+        return view('my_history', compact('curr_money','total_meal','field'));
     }
 
     public function get_money_by_month(Request $request) {
@@ -160,5 +162,30 @@ class Account extends Controller
         $mealData = Users::get_meal_by_month($mmonth, $myear);
         echo $mealData;
         
+    }
+
+    public function bacground_change() {
+
+         $field = Users::background_value();
+        
+        if($field->status == null){
+            DB::table('background')->insert([
+                [
+                'user_id' => Auth::id(), 
+                'status' => 'b'
+                ]
+            ]);
+        }
+        elseif($field->status == 'b') {
+            DB::table('background')
+            ->where('user_id', Auth::id())
+            ->update(['status' => 'w']);
+        }
+        else{
+            DB::table('background')
+            ->where('user_id', Auth::id())
+            ->update(['status' => 'b']);
+        }
+
     }
 }

@@ -154,4 +154,10 @@ public static function get_current_month_meal() {
 
  }
 
+ public static function background_value() {
+    
+  return DB::table('background')->select('status')->where('user_id',Auth::id())->get()->first();
+
+ }
+
 }

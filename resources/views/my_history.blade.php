@@ -52,10 +52,16 @@ body{
 
 </style>
     <div class="container-fluid">
-            {{-- <div class="custom-control custom-switch" style="float: right;">
-                    <input type="checkbox" class="custom-control-input toggle" id="customSwitches" value="X">
-                    <label class="custom-control-label text-white tlab" for="customSwitches" id="">Change Background Color</label>
-                  </div> --}}
+    <form action="{{URL('/background')}}" method="POST" id="background">
+        @csrf
+                <div class="custom-control custom-switch" style="float: right;">
+                <input type="checkbox" class="custom-control-input toggle" id="customSwitches" value="{{$field->status}}">
+                        <label class="custom-control-label text-white tlab" for="customSwitches" id="">Change Background Color</label>
+                      </div>
+        </form>
+           
+                  <br>
+                  <br>
 
         <div class="row" style="">
             <div class="col-md-3 col-sm-8 col-xs-12 c1">
@@ -175,19 +181,29 @@ body{
         </div>
     </div>
     <script>
-    $( document ).ready(function() {
-    $('.toggle').click(function(){
-        if ($(this).val() == 'X'){
-            $(this).val('O');
-            $('body').css("background-color", "white");  
-        }     
-        else if ($(this).val() == 'O') {
-            $(this).val('X');
-            $('body').css("background-color", "black");
-        }
-    });
-});
+        
 
+ $( document ).ready(function() {
+     $('.toggle').click(function(){
+        if ($('.toggle').val() == 'b'){
+            $(this).val('w');
+       $('body').css("background-color", "white");  
+   }     
+   else {
+    $(this).val('b');
+       $('body').css("background-color", "black");
+   }
+     });
+
+     if ($('.toggle').val() == 'w'){
+       
+       $('body').css("background-color", "white");  
+   }     
+   else {
+       
+       $('body').css("background-color", "black");
+   }
+});
 
     
     </script>
@@ -261,4 +277,53 @@ body{
         });
         
         </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    
+    $('#background').change(function(){
+       
+      
+
+        event.preventDefault();
+        var formData = new FormData(this);
+        var url = $(this).attr('action');
+          $.ajax({
+             url: url,
+             type: 'POST',
+             data: formData,
+             async: false,
+             success: function(data) {
+                
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+
+   
+    //   $('#background').submit(); 
+     
+    
+
+    
+    </script>
 @endsection

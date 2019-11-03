@@ -31,4 +31,5 @@ Route::post('/savemeal', 'Account@save_money');
 Route::get('/myHistory', 'Account@my_history');
 Route::post('/getMoney', 'Account@get_money_by_month');
 Route::post('/yourMeal', 'Account@get_meal_by_month');
+Route::post('/background', 'Account@bacground_change');
 
