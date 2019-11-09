@@ -188,4 +188,9 @@ class Account extends Controller
         }
 
     }
+
+    public function get_all_current_month_meals() {
+
+        
+    }
 }

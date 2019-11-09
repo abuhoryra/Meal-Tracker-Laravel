@@ -160,4 +160,56 @@ public static function get_current_month_meal() {
 
  }
 
+ public static function get_all_current_month_meals() {
+  
+   $year = date("Y");
+   $month = date("m");
+
+  return DB::table('meals')
+            ->join('users', 'users.id', '=', 'meals.user_id')
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->select('users.first_name','users.last_name',DB::raw('SUM(meals.lunch+meals.dinner) as meal'))
+            ->groupBy('first_name','last_name')
+            ->get();
+ }
+
+ public static function get_sum_current_month_meals() {
+  
+  $year = date("Y");
+  $month = date("m");
+
+ return DB::table('meals')
+           ->whereMonth('date', $month)
+           ->whereYear('date', $year)
+           ->select(DB::raw('SUM(meals.lunch+meals.dinner) as total'))
+           ->get()->first();
+}
+
+public static function get_current_month_all_money() {
+
+  $year = date("Y");
+  $month = date("F");
+
+  return DB::table('money')
+            ->join('users', 'users.id', '=', 'money.user_id')
+            ->where('month', $month)
+            ->where('year', $year)
+            ->select('users.first_name','users.last_name',DB::raw('SUM(money.value) as taka'))
+            ->groupBy('first_name','last_name')
+            ->get();
+ }
+
+ public static function get_current_month_sum_money() {
+
+  $year = date("Y");
+  $month = date("F");
+
+  return DB::table('money')
+            ->where('month', $month)
+            ->where('year', $year)
+            ->select(DB::raw('SUM(money.value) as total_taka'))
+            ->get()->first();
+ }
+
 }

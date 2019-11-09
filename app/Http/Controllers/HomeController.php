@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use Auth;
+use App\Users;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = Users::get_all_current_month_meals();
+        $total = Users::get_sum_current_month_meals();
+        $money = Users::get_current_month_all_money();
+        $total_money = Users::get_current_month_sum_money();
+        // var_dump($total_money);
+        // die();
+        return view('home', compact('data','total','money','total_money'));
     }
 }
